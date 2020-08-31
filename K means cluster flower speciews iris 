@@ -1,0 +1,177 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled",
+      "provenance": [],
+      "collapsed_sections": [],
+      "authorship_tag": "ABX9TyMHjP8ds38PYeoo9i35W9sR",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/18CH10007/18CH1007.github.io/blob/master/K%20means%20cluster%20flower%20speciews%20iris%20\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "jtnzxSqpZ6MJ",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "ghXTLDWaIst_",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 858
+        },
+        "outputId": "423959a0-5f4f-446e-d54c-2d85a6fac509"
+      },
+      "source": [
+        "import csv\n",
+        "import random\n",
+        "import pandas as pd\n",
+        "df= pd.read_csv(r'/content/dataseta2.csv', sep=\",\",header=None)\n",
+        "df.values\n",
+        "sepal_l=list()\n",
+        "sepal_l = pd.DataFrame(df, columns=[0])\n",
+        "sepal_w = pd.DataFrame(df, columns=[1])\n",
+        "petal_l = pd.DataFrame(df, columns=[2])\n",
+        "petal_w = pd.DataFrame(df, columns=[3])\n",
+        "print(sepal_l)\n",
+        "\n",
+        "c1=pd.DataFrame(df, index=[1])\n",
+        "print(c1)\n",
+        "c2=pd.DataFrame(df, index=[2])\n",
+        "print(c2)\n",
+        "c3=pd.DataFrame(df, index=[7])\n",
+        "print(c3)\n",
+        "c4=pd.DataFrame(df, index=[9])\n",
+        "print(c4)\n",
+        "for i in range(150):\n",
+        "  p=sepal_l.loc[i] \n",
+        "  q= sepal_w.loc[i]\n",
+        "  r= petal_l.loc[i]\n",
+        "  s= petal_w.loc[i]\n",
+        "  print(p)\n",
+        "  print(c1[0])\n",
+        "  print(p-c1[0])\n",
+        "  s1= (p-c1[0])*(p-c1[0])+ (q-c1[1])*(q-c1[1])+ ( r-c1[2])*(r-c1[2])+  ( s-c1[3])*(s-c1[3])\n",
+        "  s2= (p-c2[0])*(p-c2[0])+ (q-c2[1])*(q-c2[1])+ ( r-c2[2])*(r-c2[2])+  ( s-c2[3])*(s-c2[3])\n",
+        "  s3= (p-c3[0])*(p-c3[0])+ (q-c3[1])*(q-c3[1])+ ( r-c3[2])*(r-c3[2])+  ( s-c3[3])*(s-c3[3])\n",
+        "  \n",
+        "  if((s1<s2 )&(s1<s3)):\n",
+        "    nc1[0]+=p\n",
+        "    nc1[1]+=q\n",
+        "    nc1[2]+=r\n",
+        "    nc1[3]+=s\n",
+        "\n",
+        "  if((s2<s1 )and(s2<s3)):\n",
+        "\n",
+        "      nc2[0]+=p\n",
+        "      nc2[1]+=q\n",
+        "      nc2[2]+=r\n",
+        "      nc2[3]+=s\n",
+        "\n",
+        "  if((s3<s2 )and(s3<s1)):\n",
+        " \n",
+        "        nc3[0]+=p\n",
+        "        nc3[1]+=q\n",
+        "        nc3[2]+=r\n",
+        "        nc3[3]+=s\n",
+        "\n",
+        "\n",
+        "c1= nc1/150\n",
+        "c2-nc2/150\n",
+        "c3=nc3/150\n",
+        "c3-nc3/150\n"
+      ],
+      "execution_count": 56,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "       0\n",
+            "0    5.1\n",
+            "1    4.9\n",
+            "2    4.7\n",
+            "3    4.6\n",
+            "4    5.0\n",
+            "..   ...\n",
+            "145  6.7\n",
+            "146  6.3\n",
+            "147  6.5\n",
+            "148  6.2\n",
+            "149  5.9\n",
+            "\n",
+            "[150 rows x 1 columns]\n",
+            "     0    1    2    3            4\n",
+            "1  4.9  3.0  1.4  0.2  Iris-setosa\n",
+            "     0    1    2    3            4\n",
+            "2  4.7  3.2  1.3  0.2  Iris-setosa\n",
+            "     0    1    2    3            4\n",
+            "7  5.0  3.4  1.5  0.2  Iris-setosa\n",
+            "     0    1    2    3            4\n",
+            "9  4.9  3.1  1.5  0.1  Iris-setosa\n",
+            "0    5.1\n",
+            "Name: 0, dtype: float64\n",
+            "1    4.9\n",
+            "Name: 0, dtype: float64\n",
+            "0   NaN\n",
+            "1   NaN\n",
+            "Name: 0, dtype: float64\n"
+          ],
+          "name": "stdout"
+        },
+        {
+          "output_type": "error",
+          "ename": "ValueError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mValueError\u001b[0m                                Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-56-179bd70c9895>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m     31\u001b[0m   \u001b[0ms3\u001b[0m\u001b[0;34m=\u001b[0m \u001b[0;34m(\u001b[0m\u001b[0mp\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0mc3\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m0\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mp\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0mc3\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m0\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m+\u001b[0m \u001b[0;34m(\u001b[0m\u001b[0mq\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0mc3\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mq\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0mc3\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m+\u001b[0m \u001b[0;34m(\u001b[0m \u001b[0mr\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0mc3\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m2\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mr\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0mc3\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m2\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m+\u001b[0m  \u001b[0;34m(\u001b[0m \u001b[0ms\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0mc3\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m3\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0ms\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0mc3\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m3\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     32\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 33\u001b[0;31m   \u001b[0;32mif\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0ms1\u001b[0m\u001b[0;34m<\u001b[0m\u001b[0ms2\u001b[0m \u001b[0;34m)\u001b[0m\u001b[0;34m&\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0ms1\u001b[0m\u001b[0;34m<\u001b[0m\u001b[0ms3\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     34\u001b[0m     \u001b[0mnc1\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m0\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m+=\u001b[0m\u001b[0mp\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     35\u001b[0m     \u001b[0mnc1\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m+=\u001b[0m\u001b[0mq\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.6/dist-packages/pandas/core/ops/common.py\u001b[0m in \u001b[0;36mnew_method\u001b[0;34m(self, other)\u001b[0m\n\u001b[1;32m     62\u001b[0m         \u001b[0mother\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mitem_from_zerodim\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mother\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     63\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 64\u001b[0;31m         \u001b[0;32mreturn\u001b[0m \u001b[0mmethod\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mother\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     65\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     66\u001b[0m     \u001b[0;32mreturn\u001b[0m \u001b[0mnew_method\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.6/dist-packages/pandas/core/ops/__init__.py\u001b[0m in \u001b[0;36mwrapper\u001b[0;34m(self, other)\u001b[0m\n\u001b[1;32m    522\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    523\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0misinstance\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mother\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mABCSeries\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mand\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_indexed_same\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mother\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 524\u001b[0;31m             \u001b[0;32mraise\u001b[0m \u001b[0mValueError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"Can only compare identically-labeled Series objects\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    525\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    526\u001b[0m         \u001b[0mlvalues\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mextract_array\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mextract_numpy\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;32mTrue\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mValueError\u001b[0m: Can only compare identically-labeled Series objects"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "ag4ZbKERJ3xQ",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
